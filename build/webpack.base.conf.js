@@ -1,5 +1,4 @@
 var path = require('path')
-var fs = require('fs')
 var utils = require('./utils')
 var config = require('../config')
 var webpack = require('webpack')
@@ -9,7 +8,6 @@ var MpvuePlugin = require('webpack4-mpvue-asset-plugin')
 var glob = require('glob')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var ThreadLoader = require('thread-loader')
-var relative = require('relative')
 var MpvueOptimizePlugin = require('webpack4-mpvue-optimize-plugin')
 
 // 新增多线程打包
@@ -21,6 +19,7 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
+// 修正路径分隔符
 function normalize(pathStr) {
   return pathStr.split(path.sep).join('/')
 }
