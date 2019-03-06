@@ -67,12 +67,26 @@ let baseWebpackConfig = {
     splitChunks: {
       cacheGroups: {
         // any required modules inside node_modules are extracted to vendor
-        vendor: {
-          name: 'common/vendor',
-          minChunks: 2,
-          chunks: 'initial',
-          priority: 10,
-          enforce: true
+        cacheGroups: {
+          vendor: {
+            name: 'common/vendor',
+            test(module, chunks) {
+              if(chunks.length > 1) return true
+              const reg = /node_modules/
+              if (module.nameForCondition && reg.test(module.nameForCondition())) {
+                return true
+              }
+              for (const chunk of module.chunksIterable) {
+                if (chunk.name && reg.test(chunk.name)) {
+                  return true
+                }
+              }
+              return false
+            },
+            chunks: 'initial',
+            priority: 10,
+            enforce: true
+          }
         }
       }
     },
