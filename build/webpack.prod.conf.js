@@ -4,15 +4,17 @@ var webpack = require('webpack')
 var config = require('../config')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 // var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var TerserWebpackPlugin = require('terser-webpack-plugin')
 var MpvueVendorPlugin = require('webpack-mpvue-vendor-plugin')
+
 var env = config.build.env
 
 var webpackConfig = merge(baseWebpackConfig, {
+  mode: "production",
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
@@ -25,7 +27,16 @@ var webpackConfig = merge(baseWebpackConfig, {
     // filename: utils.assetsPath('[name].[chunkhash].js'),
     // chunkFilename: utils.assetsPath('[id].[chunkhash].js')
     filename: utils.assetsPath('[name].js'),
-    chunkFilename: utils.assetsPath('[id].js')
+    chunkFilename: utils.assetsPath('[name].js')
+  },
+  optimization: {
+    minimizer:[
+      // 改用Webpack官方JS压缩工具，支持ES6
+      new TerserWebpackPlugin({
+        cache: true,
+        parallel: true
+      })
+    ]
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
@@ -64,23 +75,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     // keep module.id stable when vender modules does not change
     new webpack.HashedModuleIdsPlugin(),
     // split vendor js into its own file
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common/vendor',
-      minChunks: function (module, count) {
-        // any required modules inside node_modules are extracted to vendor
-        return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf('node_modules') >= 0
-        ) || count > 1
-      }
-    }),
-    // extract webpack runtime and module manifest to its own file in order to
-    // prevent vendor hash from being updated whenever app bundle is updated
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common/manifest',
-      chunks: ['common/vendor']
-    }),
+    
     new MpvueVendorPlugin({
       platform: process.env.PLATFORM
     })
@@ -108,13 +103,6 @@ var webpackConfig = merge(baseWebpackConfig, {
 if (config.build.bundleAnalyzerReport) {
   var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
-}
-
-var useUglifyJs = process.env.PLATFORM !== 'swan'
-if (useUglifyJs) {
-  webpackConfig.plugins.push(new UglifyJsPlugin({
-    sourceMap: true
-  }))
 }
 
 module.exports = webpackConfig

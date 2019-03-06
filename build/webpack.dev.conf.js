@@ -19,15 +19,17 @@ var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 // })
 
 module.exports = merge(baseWebpackConfig, {
+  mode: "development",
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.dev.cssSourceMap,
       extract: true
     })
   },
+  watch: true,
   // cheap-module-eval-source-map is faster for development
   // devtool: '#cheap-module-eval-source-map',
-  // devtool: '#source-map',
+  devtool: '#source-map',
   output: {
     path: config.build.assetsRoot,
     // filename: utils.assetsPath('[name].[chunkhash].js'),
@@ -35,6 +37,11 @@ module.exports = merge(baseWebpackConfig, {
     filename: utils.assetsPath('[name].js'),
     chunkFilename: utils.assetsPath('[id].js')
   },
+  // optimization: {
+  //   minimizer: [
+  //     new OptimizeCSSPlugin()
+  //   ]
+  // },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': config.dev.env
@@ -52,21 +59,6 @@ module.exports = merge(baseWebpackConfig, {
       cssProcessorOptions: {
         safe: true
       }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common/vendor',
-      minChunks: function (module, count) {
-        // any required modules inside node_modules are extracted to vendor
-        return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf('node_modules') >= 0
-        ) || count > 1
-      }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common/manifest',
-      chunks: ['common/vendor']
     }),
     new MpvueVendorPlugin({
       platform: process.env.PLATFORM

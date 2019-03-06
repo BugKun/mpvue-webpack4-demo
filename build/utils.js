@@ -2,8 +2,8 @@ var path = require('path')
 var fs = require('fs')
 var config = require('../config')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var mpvueInfo = require('../node_modules/mpvue/package.json')
-var packageInfo = require('../package.json')
+var mpvueInfo = require(path.resolve('node_modules/mpvue/package.json'))
+var packageInfo = require(path.resolve('package.json'))
 var mkdirp = require('mkdirp')
 
 exports.assetsPath = function (_path) {
