@@ -1,4 +1,4 @@
-require('./check-versions')()
+// require('./check-versions')()
 
 process.env.PLATFORM = process.argv[process.argv.length - 1] || 'wx'
 var config = require('../config')
@@ -24,10 +24,12 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
-var compiler = webpack(webpackConfig)
-if (process.env.PLATFORM === 'swan') {
-  utils.writeFrameworkinfo()
-}
+var compiler = webpack(webpackConfig, function (err, stats) {
+  if (err) throw err
+  if (process.env.PLATFORM === 'swan') {
+    utils.writeFrameworkinfo()
+  }
+})
 
 // var devMiddleware = require('webpack-dev-middleware')(compiler, {
 //   publicPath: webpackConfig.output.publicPath,
@@ -94,11 +96,6 @@ module.exports = new Promise((resolve, reject) => {
         console.log(`${port}端口被占用，开启新端口${newPort}`)
       }
       var server = app.listen(newPort, 'localhost')
-      // for 小程序的文件保存机制
-      require('webpack-dev-middleware-hard-disk')(compiler, {
-        publicPath: webpackConfig.output.publicPath,
-        quiet: true
-      })
       resolve({
         ready: readyPromise,
         close: () => {
