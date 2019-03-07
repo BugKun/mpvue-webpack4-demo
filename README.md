@@ -4,6 +4,7 @@
 
 # Branch
 当前分支的是 Webpack4 + Babel@6
+
 [点击我切换到 Webpack4 + Babel@7 的分支](https://github.com/BugKun/mpvue-webpack4-demo/tree/feature/babel%407)
 
 ## Build Setup
