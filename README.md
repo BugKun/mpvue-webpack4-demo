@@ -46,3 +46,4 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 [查看源码（babel@6）](https://github.com/BugKun/mpvue-loader/tree/feature/webpack4-support)
 [查看源码（babel@7）](https://github.com/BugKun/mpvue-loader/tree/feature/webpack4_babel%407-support)
 * 新增 [webpack4-mpvue-optimize-plugin](https://www.npmjs.com/package/webpack4-mpvue-optimize-plugin) ，用于处理 `webpack4` 打包时抽取公共代码后全局变量不是 `global` 的问题。
+* 替换了 `mpvue-webpack-target` 为 [mpvue-webpack-target-webpack4](https://www.npmjs.com/package/mpvue-webpack-target-webpack4), 这个包是由 [Beven91](https://github.com/Beven91) 进行修改和开源的，改得非常好，我就不另外自己写了，就直接使用这个包了[查看源码](https://github.com/Beven91/mpvue-webpack-target)
