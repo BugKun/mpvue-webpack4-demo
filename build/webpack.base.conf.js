@@ -1,5 +1,4 @@
 var path = require('path')
-var fs = require('fs')
 var utils = require('./utils')
 var config = require('../config')
 var webpack = require('webpack')
@@ -106,8 +105,6 @@ let baseWebpackConfig = {
       {
         test: /\.vue$/,
         use: [
-          //'test-loader',
-          //'thread-loader',
           {
             loader: 'webpack4-mpvue-loader',
             options: vueLoaderConfig
