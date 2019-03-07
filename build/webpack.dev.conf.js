@@ -29,6 +29,7 @@ module.exports = merge(baseWebpackConfig, {
   // cheap-module-eval-source-map is faster for development
   // devtool: '#cheap-module-eval-source-map',
   devtool: '#source-map',
+  watch: true,
   output: {
     path: config.build.assetsRoot,
     // filename: utils.assetsPath('[name].[chunkhash].js'),
@@ -40,7 +41,6 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': config.dev.env
     }),
-
     // copy from ./webpack.prod.conf.js
     // extract css into its own file
     new ExtractTextPlugin({
