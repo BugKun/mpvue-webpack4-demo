@@ -37,3 +37,12 @@ npm run build --report
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Description
+### 此 DEMO 与官方对比修改了的内容
+* `webpack` 的配置项更新为 `webpack4` 的配置项并配置和使用了`babel@7`。(https://github.com/BugKun/mpvue-webpack4-demo/tree/feature/babel%407)
+* webpack-mpvue-asset-plugin 进行了修改，并重命名为 [webpack4-mpvue-asset-plugin](https://www.npmjs.com/package/webpack4-mpvue-asset-plugin) 方便在 `npm` 上安装。[查看源码](https://github.com/BugKun/webpack-mpvue-asset-plugin/tree/feature/webpack4)
+* mpvue-loader 进行了修改，并重命名为 [webpack4-mpvue-loader](https://www.npmjs.com/package/webpack4-mpvue-loader) 方便在 npm 上安装。
+[查看源码（babel@6）](https://github.com/BugKun/mpvue-loader/tree/feature/webpack4-support)
+[查看源码（babel@7）](https://github.com/BugKun/mpvue-loader/tree/feature/webpack4_babel%407-support)
+* 新增 [webpack4-mpvue-optimize-plugin](https://www.npmjs.com/package/webpack4-mpvue-optimize-plugin) ，用于处理 `webpack4` 打包时抽取公共代码后全局变量不是 `global` 的问题。
