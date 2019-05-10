@@ -8,7 +8,6 @@ var MpvuePlugin = require('webpack4-mpvue-asset-plugin')
 var glob = require('glob')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var ThreadLoader = require('thread-loader')
-var MpvueOptimizePlugin = require('webpack4-mpvue-optimize-plugin')
 
 // 新增多线程打包
 ThreadLoader.warmup({}, [
@@ -49,6 +48,7 @@ let baseWebpackConfig = {
     path: normalize(config.build.assetsRoot),
     jsonpFunction: 'webpackJsonpMpvue',
     filename: '[name].js',
+    globalObject: 'global',
     publicPath: process.env.NODE_ENV === 'production'
       ? normalize(config.build.assetsPublicPath)
       : normalize(config.dev.assetsPublicPath)
@@ -175,7 +175,6 @@ let baseWebpackConfig = {
     }], {
       context: 'src/'
     }),
-    new MpvueOptimizePlugin(),
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../static'),
