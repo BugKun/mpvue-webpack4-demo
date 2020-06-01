@@ -75,7 +75,7 @@
     "url-loader": "^1.1.2",
     "vue-style-loader": "^4.1.0",
     "webpack": "^4.29.5",
-    "webpack-bundle-analyzer": "^2.2.1",
+    "webpack-bundle-analyzer": "^3.8.0",
     "webpack-merge": "^4.1.0",
     "webpack-mpvue-vendor-plugin": "^2.0.2",
     "webpack4-mpvue-asset-plugin": "^2.0.3",
